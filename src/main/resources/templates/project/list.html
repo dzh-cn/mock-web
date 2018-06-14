@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>projects</title>
+</head>
+<body>
+	<h1>project list</h1>
+	<p><a href="save">add</a></p>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>role</th>
+				<th>desc</th>
+				<th>date</th>
+				<th>edit</th>
+			</tr>
+		</thead>
+		<tr th:each="item: ${list}">
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.role}"></td>
+			<td th:text="${item.desc}"></td>
+			<td th:text="${item.createdDate}"></td>
+			<td><a href="/facade/add">接口</a></td>
+		</tr>
+	</table>
+</body>
+</html>

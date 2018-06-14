@@ -1,11 +1,22 @@
 package com.jr.mock.mockweb.repository
 
 import com.jr.mock.mockweb.document.Facade
-import org.bson.types.ObjectId
-import org.springframework.data.mongodb.repository.MongoRepository
+import com.jr.mock.mockweb.document.Param
+import com.jr.mock.mockweb.document.Project
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-@Repository
-interface FacadeRepository:MongoRepository<Facade, ObjectId> {
-    fun findOneByApiKey(apiKey:String)
-}
+/**
+ * 项目Repository
+ */
+interface ProjectRepository : JpaRepository<Project, Int>
+
+/**
+ * 接口Repository
+ */
+interface FacadeRepository : JpaRepository<Facade, Int>
+
+/**
+ * 参数Repository
+ */
+interface ParamRepository : JpaRepository<Param, Int>
