@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+	.pagination {
+		list-style: none;
+	}
+	.pagination li {
+		float: left;
+		margin-left: 1em;
+	}
+</style>
+<style th:include="./common/css.html"></style>
+<input type="hidden" th:name="page" th:value="${page.number}">
+<ul class="pagination" >
+	<!-- 上一页 -->
+	<li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+		<a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=0" aria-label="Previous">
+			<span aria-hidden="true">«</span>
+		</a>
+	</li>
+
+	<!-- 迭代生成页码 -->
+	<li class="page-item" data-th-each="i : ${#numbers.sequence(1, page.totalPages)}"
+		data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''" >
+		<a class="page-link" data-th-attr="pageIndex=${i} - 1" href="javascript:void(0);">
+			<span data-th-text="${i}"></span>
+		</a>
+	</li>
+
+	<!-- 下一页 -->
+	<li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+		<a href="javascript:void(0);" class="page-link" data-th-attr="pageIndex=${page.totalPages} - 1" aria-label="Next">
+			<span aria-hidden="true">»</span>
+		</a>
+	</li>
+</ul>
+<script src="//static.360buyimg.com/finance/??common/lib/jquery/1.8.3/jquery.js"></script>
+<script>
+    $(function () {
+        $('.page-link').live('click', function () {
+            var $t = $(this)
+            var $pageNum = $(':input[name=page]')
+            var cuPageNum = $t.attr('pageindex');
+            if(cuPageNum === $pageNum.val()) {
+                return
+            }
+            $pageNum.val($t.attr('pageindex'))
+            $('form').submit()
+        })
+    })
+</script>

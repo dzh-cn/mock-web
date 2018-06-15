@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>参数编辑</title>
+	<style th:include="./common/css.html"></style>
+</head>
+<body th:class="center">
+	<h2>接口信息</h2>
+	<form method="post" action="/param/save">
+		<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+		<input type="hidden" th:name="id" th:value="${param?.id}">
+		<input type="hidden" th:name="fid" th:value="${param?.fid}">
+		<input type="hidden" th:name="facadeId" th:value="${param?.facadeId}">
+		<table>
+			<tr>
+				<th>参数名</th>
+				<td>
+					<input class="text" name="name" th:value="${param.name}">
+					<input class="text" name="name" th:value="${project?.name}">
+				</td>
+			</tr>
+			<tr>
+				<th>描述</th>
+				<td>
+					<textarea class="text" style="height: 3em;" name="desc" th:text="${param?.desc}"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>参数类型</th>
+				<td>
+					<select class="text" th:name="method">
+						<option>Number</option>
+						<option>String</option>
+						<option>Boolean</option>
+						<option>Object</option>
+						<option>Array</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>mock</th>
+				<td>
+					<input class="text" name="mock" th:value="${param?.mock}">
+				</td>
+			</tr>
+		</table>
+		<p>
+			<input style="float: right" class="submit" type="submit" value="save">
+		</p>
+	</form>
+</body>
+</html>

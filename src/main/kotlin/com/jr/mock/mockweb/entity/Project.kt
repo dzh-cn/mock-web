@@ -1,4 +1,4 @@
-package com.jr.mock.mockweb.document
+package com.jr.mock.mockweb.entity
 
 import java.util.*
 import javax.persistence.*
@@ -7,7 +7,7 @@ import javax.persistence.*
 @Table(name = "mk_project")
 class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Int? = null
     @Column
     var name: String? = null

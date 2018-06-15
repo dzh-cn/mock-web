@@ -1,4 +1,4 @@
-package com.jr.mock.mockweb.document
+package com.jr.mock.mockweb.entity
 
 import javax.persistence.*
 
@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "mk_param")
 class Param {
     @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Int? = null
     @Column
     var facadeId:Int? = null
@@ -20,6 +20,4 @@ class Param {
     var type:String? = null
     @Column
     var mock:String? = null
-
-    var params: Array<Param>? = null
 }

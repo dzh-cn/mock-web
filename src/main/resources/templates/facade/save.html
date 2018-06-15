@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>接口编辑</title>
+	<style th:include="./common/css.html"></style>
+</head>
+<body th:class="center">
+	<h2>基本信息</h2>
+	<form method="post" action="/facade/save">
+		<input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+		<input type="hidden" th:name="id" th:value="${facade?.id}">
+		<input type="hidden" th:name="projectId" th:value="${facade?.projectId}">
+		<table>
+			<tr>
+				<th>接口名称</th>
+				<td>
+					<input class="text" name="name" th:value="${facade?.name}">
+				</td>
+			</tr>
+			<tr>
+				<th>请求路径</th>
+				<td>
+					<input class="text" name="uri" th:value="${facade?.uri}">
+				</td>
+			</tr>
+			<tr>
+				<th>方法</th>
+				<td>
+					<label><input type="radio" th:name="method" th:value="GET">GET</label>
+					<label><input type="radio" th:name="method" th:value="POST">POST</label>
+				</td>
+			</tr>
+			<tr>
+				<th>接口描述</th>
+				<td>
+					<textarea class="text" style="height: 3em;" name="desc" th:text="${facade?.desc}"></textarea>
+				</td>
+			</tr>
+		</table>
+		<p>
+			<input style="float: right" class="submit" type="submit" value="save">
+		</p>
+	</form>
+</body>
+</html>

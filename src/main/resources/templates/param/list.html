@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>参数列表</title>
+	<style th:include="./common/css.html"></style>
+</head>
+<body class="center">
+	<h1>接口信息</h1>
+	<table>
+		<tr>
+			<th>接口名称</th>
+			<td>
+				<input readonly class="text" name="name" th:value="${facade?.name}">
+			</td>
+		</tr>
+		<tr>
+			<th>请求路径</th>
+			<td>
+				<input readonly class="text" name="uri" th:value="${facade?.uri}">
+			</td>
+		</tr>
+		<tr>
+			<th>方法</th>
+			<td>
+				<input readonly class="text" name="method" th:value="${facade?.method}">
+			</td>
+		</tr>
+		<tr>
+			<th>接口描述</th>
+			<td>
+				<textarea readonly class="text" style="height: 3em;" name="desc" th:text="${facade?.desc}"></textarea>
+			</td>
+		</tr>
+	</table>
+	<h1>参数列表</h1>
+	<p>
+		<a th:href="@{'/param/save?facadeId='+${facade?.id}}">add</a>
+		<a style="float: right" href="javascript:location.reload();">查询</a>
+	</p>
+	<form th:action="@{params/list}">
+		<table>
+			<thead>
+				<tr>
+					<th>参数名</th>
+					<th>参数含义</th>
+					<th>参数类型</th>
+					<th>mock规则</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tr th:each="item: ${page.content}">
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.desc}"></td>
+				<td th:text="${item.type}"></td>
+				<td th:text="${item.mock}"></td>
+				<td>
+					<a th:href="@{'/param/save?id='+${item.id}}">修改</a>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

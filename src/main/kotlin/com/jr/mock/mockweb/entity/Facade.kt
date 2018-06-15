@@ -1,4 +1,4 @@
-package com.jr.mock.mockweb.document
+package com.jr.mock.mockweb.entity
 
 import java.util.*
 import javax.persistence.*
@@ -7,7 +7,7 @@ import javax.persistence.*
 @Table(name = "mk_facade")
 class Facade {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
     @Column
     var projectId: Int? = null
@@ -24,7 +24,7 @@ class Facade {
     @Column
     var operator: String? = null
     @Column
-    var createData: Date = Date()
+    var createdDate: Date? = null
 
     var params: Array<Param>? = null
     override fun toString(): String {
@@ -37,7 +37,7 @@ class Facade {
                 "method=$method," +
                 "status=$status," +
                 "operator=$operator," +
-                "createData=$createData," +
+                "createdDate=$createdDate," +
                 "params=${Arrays.toString(params)}" +
                 ")"
     }

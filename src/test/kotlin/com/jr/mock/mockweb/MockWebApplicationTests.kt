@@ -1,6 +1,6 @@
 package com.jr.mock.mockweb
 
-import com.jr.mock.mockweb.document.Facade
+import com.jr.mock.mockweb.entity.Facade
 import com.jr.mock.mockweb.repository.FacadeRepository
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +19,7 @@ class MockWebApplicationTests {
     @Test
     fun contextLoads() {
         var facade = Facade()
-        facade.createData = Date()
+        facade.createdDate = Date()
         facade.name = "保存会员信息"
         println(facadeRepository.save(facade))
         println(facadeRepository.findAll())

@@ -1,10 +1,9 @@
 package com.jr.mock.mockweb.repository
 
-import com.jr.mock.mockweb.document.Facade
-import com.jr.mock.mockweb.document.Param
-import com.jr.mock.mockweb.document.Project
+import com.jr.mock.mockweb.entity.Facade
+import com.jr.mock.mockweb.entity.Param
+import com.jr.mock.mockweb.entity.Project
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 
 /**
  * 项目Repository

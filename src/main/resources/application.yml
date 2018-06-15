@@ -1,3 +1,9 @@
 spring:
   profiles:
     active: dev
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+  jackson:
+    joda-date-time-format: yyyy-MM-dd HH:mm
