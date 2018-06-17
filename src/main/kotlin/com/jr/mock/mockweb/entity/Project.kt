@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "mk_project")
-class Project {
+class Project: OperatorCommon() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Int? = null
@@ -15,6 +15,4 @@ class Project {
     var role: String? = null
     @Column
     var desc: String? = null
-    @Column
-    var createdDate: Date? = Date()
 }

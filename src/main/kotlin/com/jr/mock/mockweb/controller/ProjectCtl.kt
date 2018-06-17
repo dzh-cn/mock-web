@@ -9,6 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import java.util.*
 
 /**
  * 项目控制器
@@ -38,13 +39,8 @@ class ProjectCtl {
 
     @PostMapping("save")
     fun doSave(project: Project):String {
-        var project1 = projectRepository.save(project)
-        for (i in 1..24) {
-            var p = Project()
-            p.name = project.name + i
-            p.role = project.role + i
-            projectRepository.save(p)
-        }
+        project.lastModifiedDate = Date()
+        projectRepository.save(project)
         return "redirect:/project/list"
     }
 }

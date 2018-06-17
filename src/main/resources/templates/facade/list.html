@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>接口列表</title>
-	<style th:include="./common/css.html"></style>
+    <meta charset="UTF-8">
+    <title>接口列表</title>
+    <style th:include="./common/css.html"></style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
-	<h1>接口列表</h1>
-	<p>
-		<a href="save">add</a>
-		<a style="float: right" href="javascript:location.reload();">查询</a>
-	</p>
-	<form th:action="@{list}">
-		<table>
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>名称</th>
-					<th>方法</th>
-					<th>状态</th>
-					<th>操作人</th>
-					<th>操作时间</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tr th:each="item: ${page.content}">
-				<td th:text="${item.id}"></td>
-				<td th:text="${item.name}"></td>
-				<td th:text="${item.method}"></td>
-				<td th:text="${item.status}"></td>
-				<td th:text="${item.operator}"></td>
-				<td th:text="${#dates.format(item.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-				<td>
-					<a th:href="@{'save?id='+${item.id}}">修改</a>
-					<a th:href="@{'params?facadeId='+${item.id}}">参数</a>
-				</td>
-			</tr>
-		</table>
-		<p th:include="./common/page.html"></p>
-	</form>
+<h2>接口列表</h2>
+<p>
+    <a class="btn btn-success" th:href="@{'save?projectId='+${facade.projectId}}">新增</a>
+    <a class="btn btn-primary" style="float: right" href="javascript:location.reload();">查询</a>
+</p>
+<form th:action="@{list}">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>名称</th>
+            <th>方法</th>
+            <th>接口说明</th>
+            <!--<th>状态</th>-->
+            <th>操作人</th>
+            <th>操作时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tr th:each="item: ${page.content}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.method}"></td>
+            <td th:text="${item.desc}"></td>
+            <!--<td th:text="${item.status}"></td>-->
+            <td th:text="${item.operator}"></td>
+            <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <a class="btn btn-success" th:href="@{'save?id='+${item.id}}">修改</a>
+                <a class="btn btn-link" th:href="@{'params?facadeId='+${item.id}}">参数</a>
+            </td>
+        </tr>
+    </table>
+    <p th:include="./common/page.html"></p>
+</form>
 </body>
 </html>

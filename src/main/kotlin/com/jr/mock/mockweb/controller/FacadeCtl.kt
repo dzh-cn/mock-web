@@ -10,6 +10,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import java.util.*
 
 @Controller
 @RequestMapping("facade")
@@ -21,11 +22,13 @@ class FacadeCtl {
     fun list(model: Model, pageable: Pageable, facade: Facade):String {
         var page = facadeRepository.findAll(Example.of(facade), pageable)
         model.addAttribute("page", page)
+        model.addAttribute("facade", facade)
         return "facade/list"
     }
 
     @GetMapping("save")
-    fun toSave(id: Int?, model: Model):String {
+    fun toSave(id: Int?, model: Model, facade: Facade):String {
+        model.addAttribute("facade", facade)
         if (id != null) {
             model.addAttribute("facade", facadeRepository.findById(id).get())
         }
@@ -34,13 +37,9 @@ class FacadeCtl {
 
     @PostMapping("save")
     fun doSave(facade: Facade):String {
+        facade.lastModifiedDate = Date()
         facadeRepository.save(facade)
-        for (i in 1..24) {
-            var p = Facade()
-            p.name = facade.name + i
-            facadeRepository.save(p)
-        }
-        return "redirect:/facade/list"
+        return "redirect:/facade/list?projectId=${facade.projectId}"
     }
 
     @GetMapping("params")

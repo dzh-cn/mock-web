@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "mk_facade")
-class Facade {
+class Facade: OperatorCommon() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
@@ -21,26 +21,11 @@ class Facade {
     var method: String? = null
     @Column
     var status: String? = null
-    @Column
-    var operator: String? = null
-    @Column
-    var createdDate: Date? = null
 
     var params: Array<Param>? = null
-    override fun toString(): String {
-        return "Facade(" +
-                "id=$id," +
-                "projectId=$projectId," +
-                "uri=$uri," +
-                "name=$name," +
-                "desc=$desc," +
-                "method=$method," +
-                "status=$status," +
-                "operator=$operator," +
-                "createdDate=$createdDate," +
-                "params=${Arrays.toString(params)}" +
-                ")"
-    }
 
+    override fun toString(): String {
+        return "Facade(id=$id, projectId=$projectId, uri=$uri, name=$name, desc=$desc, method=$method, status=$status, params=${Arrays.toString(params)})"
+    }
 
 }

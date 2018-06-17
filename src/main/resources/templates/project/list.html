@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>项目列表</title>
+    <meta charset="UTF-8">
+    <title>项目列表</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
-	<h1>项目列表</h1>
-	<p>
-		<a href="save">新增</a>
-		<a style="float: right" href="javascript:location.reload();">查询</a>
-	</p>
-	<form th:action="@{list}">
-		<input type="hidden" th:name="page" th:value="${page.number}">
-		<table>
-			<thead>
-				<tr>
-					<th>id</th>
-					<th>名称</th>
-					<th>项目组</th>
-					<th>描述</th>
-					<th>创建时间</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tr th:each="item: ${page.content}">
-				<td th:text="${item.id}"></td>
-				<td th:text="${item.name}"></td>
-				<td th:text="${item.role}"></td>
-				<td th:text="${item.desc}"></td>
-				<td th:text="${#dates.format(item.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-				<td>
-					<a th:href="@{'save?id='+${item.id}}">修改</a>
-					<a th:href="@{'/facade/list?projectId='+${item.id}}">接口</a>
-				</td>
-			</tr>
-		</table>
-		<p th:include="./common/page.html"></p>
-	</form>
+<h2>项目列表</h2>
+<p>
+    <a class="btn btn-success" href="save">新增</a>
+    <a class="btn btn-primary" style="float: right" href="javascript:location.reload();">查询</a>
+</p>
+<form th:action="@{list}">
+    <input type="hidden" th:name="page" th:value="${page.number}">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>名称</th>
+            <!--<th>项目组</th>-->
+            <th>描述</th>
+            <th>操作时间</th>
+            <th> 操作</th>
+        </tr>
+        </thead>
+        <tr th:each="item: ${page.content}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.name}"></td>
+            <!--<td th:text="${item.role}"></td>-->
+            <td th:text="${item.desc}"></td>
+            <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <a class="btn btn-success" th:href="@{'save?id='+${item.id}}">修改</a>
+                <a class="btn btn-link" th:href="@{'/facade/list?projectId='+${item.id}}">接口</a>
+            </td>
+        </tr>
+    </table>
+    <p th:include="./common/page.html"></p>
+</form>
 </body>
 </html>

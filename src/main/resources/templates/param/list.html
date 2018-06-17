@@ -4,61 +4,92 @@
 	<meta charset="UTF-8">
 	<title>参数列表</title>
 	<style th:include="./common/css.html"></style>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
-	<h1>接口信息</h1>
-	<table>
+	<h2>参数列表</h2>
+	<div class="readonly form-horizontal">
+		<h3>接口信息</h3>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">接口名称</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.name}" class="form-control" name="name" placeholder="请输入项目名称">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">请求路径</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.uri}" class="form-control" name="uri" placeholder="请输入请求路径">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">方法</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.method}" class="form-control" name="uri" placeholder="请输入请求路径">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">接口说明</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.desc}" class="form-control" name="desc" placeholder="请输入接口说明">
+			</div>
+		</div>
+	</div>
+	<h3>参数列表</h3>
+	<p>
+		<a class="btn btn-success" th:href="@{'/param/save?model=RESPONSE&facadeId='+${facade?.id}}">新增参数</a>
+	</p>
+	<table class="table table-hover">
+		<thead>
 		<tr>
-			<th>接口名称</th>
-			<td>
-				<input readonly class="text" name="name" th:value="${facade?.name}">
-			</td>
+			<th>参数名</th>
+			<th>参数含义</th>
+			<th>参数类型</th>
+			<th>mock规则</th>
+			<th>操作</th>
 		</tr>
-		<tr>
-			<th>请求路径</th>
+		</thead>
+		<tr th:each="item: ${pageRequest}">
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.desc}"></td>
+			<td th:text="${item.type}"></td>
+			<td th:text="${item.mock}"></td>
 			<td>
-				<input readonly class="text" name="uri" th:value="${facade?.uri}">
-			</td>
-		</tr>
-		<tr>
-			<th>方法</th>
-			<td>
-				<input readonly class="text" name="method" th:value="${facade?.method}">
-			</td>
-		</tr>
-		<tr>
-			<th>接口描述</th>
-			<td>
-				<textarea readonly class="text" style="height: 3em;" name="desc" th:text="${facade?.desc}"></textarea>
+				<a class="btn btn-success" th:href="@{'/param/save?id='+${item.id}}">修改</a>
 			</td>
 		</tr>
 	</table>
-	<h1>参数列表</h1>
+	<h3>返回值列表</h3>
 	<p>
-		<a th:href="@{'/param/save?facadeId='+${facade?.id}}">add</a>
-		<a style="float: right" href="javascript:location.reload();">查询</a>
+		<a class="btn btn-success" th:href="@{'/param/save?model=RESPONSE&facadeId='+${facade?.id}}">新增返回值</a>
 	</p>
-	<form th:action="@{params/list}">
-		<table>
-			<thead>
-				<tr>
-					<th>参数名</th>
-					<th>参数含义</th>
-					<th>参数类型</th>
-					<th>mock规则</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tr th:each="item: ${page.content}">
-				<td th:text="${item.name}"></td>
-				<td th:text="${item.desc}"></td>
-				<td th:text="${item.type}"></td>
-				<td th:text="${item.mock}"></td>
-				<td>
-					<a th:href="@{'/param/save?id='+${item.id}}">修改</a>
-				</td>
-			</tr>
-		</table>
-	</form>
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>参数名</th>
+			<th>参数含义</th>
+			<th>参数类型</th>
+			<th>mock规则</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tr th:each="item: ${pageResponse}">
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.desc}"></td>
+			<td th:text="${item.type}"></td>
+			<td th:text="${item.mock}"></td>
+			<td>
+				<a class="btn btn-success" th:href="@{'/param/save?id='+${item.id}}">修改</a>
+			</td>
+		</tr>
+	</table>
 </body>
+<script src="//static.360buyimg.com/finance/??common/lib/jquery/1.8.3/jquery.js"></script>
+<script>
+	$(function () {
+        $('.readonly :input').each(function (i, v) {
+			$(v).attr("readonly", true)
+        })
+    })
+</script>
 </html>
