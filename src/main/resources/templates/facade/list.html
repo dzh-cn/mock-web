@@ -7,42 +7,118 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
-<div class="page-header">
-    <h2>接口列表</h2>
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>Home</li>
+    </ol>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>项目列表
+                <!--<a class="btn btn-success btn-xs" href="/project/save"><span class="glyphicon glyphicon-plus"></span></a>-->
+                <a class="btn btn-link btn-xs" th:href="@{'/project/list'}">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                </a>
+            </h3>
+            <ul class="nav nav-pills nav-stacked">
+                <li th:each="proj : ${projectList}" th:class="${proj.id eq currentProjectId} ? 'active' : ''">
+                    <a th:href="@{'list?projectId='+${proj.id}}" th:text="${proj.name}">无名</a>
+                </li>
+            </ul>
+            <hr class="hidden-sm hidden-md hidden-lg">
+        </div>
+        <div class="col-sm-8">
+
+            <div class="page-header">
+                <h2>接口列表</h2>
+            </div>
+            <p>
+                <!--<a class="btn btn-success btn-sm" th:href="@{'save?projectId='+${currentProjectId}}"><span class="glyphicon glyphicon-plus"></span> 新增</a>-->
+                <button th:attr="projectId=${currentProjectId}" class="btn btn-success btn-sm facade-edit" data-toggle="modal" data-target="#facadeModal">
+                    <span class="glyphicon glyphicon-plus"></span> 新增
+                </button>
+                <a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span class="glyphicon glyphicon-search"></span> 查询</a>
+            </p>
+            <form th:action="@{list}">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>名称</th>
+                        <th>方法</th>
+                        <th>接口说明</th>
+                        <!--<th>状态</th>-->
+                        <th>操作人</th>
+                        <th>操作时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="item: ${page.content}">
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.name}"></td>
+                        <td th:text="${item.method}"></td>
+                        <td th:text="${item.desc}"></td>
+                        <!--<td th:text="${item.status}"></td>-->
+                        <td th:text="${item.operator}"></td>
+                        <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
+                        <td>
+                            <!--<a class="btn btn-success btn-sm" th:href="@{'save?id='+${item.id}}"><span class="glyphicon glyphicon-edit"></span> 修改</a>-->
+                            <a th:attr="facadeId=${item.id}" data-toggle="modal" data-target="#facadeModal"
+                               class="btn btn-success btn-sm facade-edit">
+                                <span class="glyphicon glyphicon-edit"></span> 修改
+                            </a>
+                            <a class="btn btn-link btn-sm" th:href="@{'params?facadeId='+${item.id}}"><span class="glyphicon glyphicon-hand-right"></span> 参数</a>
+                        </td>
+                    </tr>
+                </table>
+                <p th:include="./common/page.html"></p>
+            </form>
+        </div>
+    </div>
 </div>
-<p>
-    <a class="btn btn-success btn-sm" th:href="@{'save?projectId='+${facade.projectId}}"><span class="glyphicon glyphicon-plus"></span> 新增</a>
-    <a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span class="glyphicon glyphicon-search"></span> 查询</a>
-</p>
-<form th:action="@{list}">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>名称</th>
-            <th>方法</th>
-            <th>接口说明</th>
-            <!--<th>状态</th>-->
-            <th>操作人</th>
-            <th>操作时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tr th:each="item: ${page.content}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.name}"></td>
-            <td th:text="${item.method}"></td>
-            <td th:text="${item.desc}"></td>
-            <!--<td th:text="${item.status}"></td>-->
-            <td th:text="${item.operator}"></td>
-            <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
-            <td>
-                <a class="btn btn-success btn-sm" th:href="@{'save?id='+${item.id}}"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-                <a class="btn btn-link btn-sm" th:href="@{'params?facadeId='+${item.id}}"><span class="glyphicon glyphicon-hand-right"></span> 参数</a>
-            </td>
-        </tr>
-    </table>
-    <p th:include="./common/page.html"></p>
-</form>
+
+<div class="modal fade" id="facadeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">接口编辑</h4>
+            </div>
+            <div id="modal_facade_body" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="saveFacade" type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script>
+    $(function () {
+        $('.facade-edit').click(function () {
+            var id = $(this).attr('facadeId');
+            id = id == null ? '': id
+            var projectId = $(this).attr('projectId');
+            projectId = projectId == null ? '': projectId
+            $("#modal_facade_body").load('save?id=' + id + '&projectId=' + projectId);
+        })
+
+        $('#saveFacade').click(function () {
+            $.ajax({
+                url: 'save.biz',
+                data: $('#modal_facade_body form').serialize(),
+                dataType: 'json',
+                method: 'post',
+                error: function (a,b,c) {
+                    console.log('网络异常',a,b,c)
+                },
+                success: function (data) {
+                    console.log(data)
+                    location.reload()
+                }
+            })
+        })
+    })
+</script>
 </html>

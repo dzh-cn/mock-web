@@ -9,6 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 import java.util.*
 
 @Controller
@@ -51,5 +52,13 @@ class ParamCtl {
         param.lastModifiedDate = Date()
         paramRepository.save(param)
         return "redirect:/facade/params?facadeId=${param.facadeId}"
+    }
+
+    @PostMapping("save.biz")
+    @ResponseBody
+    fun bizSave(param: Param): Any {
+        param.lastModifiedDate = Date()
+        paramRepository.save(param)
+        return hashMapOf("success" to true, "code" to "success", "message" to "请求成功")
     }
 }

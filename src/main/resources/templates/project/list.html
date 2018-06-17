@@ -6,12 +6,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li>项目列表</li>
+</ol>
 <div class="page-header">
-    <h2>项目列表</h2>
+    <h2>项目列表<a class="btn btn-link" style="float: right" href="/"><span class="glyphicon glyphicon-hand-right"></span> Home</a></h2>
 </div>
 <p>
-    <a class="btn btn-success btn-sm" href="save"><span class="glyphicon glyphicon-plus"></span> 新增</a>
-    <a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span class="glyphicon glyphicon-search"></span> 查询</a>
+    <button class="btn btn-success btn-sm project-edit" data-toggle="modal" data-target="#projectModal"><span
+            class="glyphicon glyphicon-plus"></span> 新增
+    </button>
+    <a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span
+            class="glyphicon glyphicon-search"></span> 查询</a>
 </p>
 <form th:action="@{list}">
     <input type="hidden" th:name="page" th:value="${page.number}">
@@ -33,12 +40,60 @@
             <td th:text="${item.desc}"></td>
             <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
             <td>
-                <a class="btn btn-success btn-sm" th:href="@{'save?id='+${item.id}}"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-                <a class="btn btn-link btn-sm" th:href="@{'/facade/list?projectId='+${item.id}}"><span class="glyphicon glyphicon-hand-right"></span> 接口</a>
+                <a th:attr="projectId=${item.id}" data-toggle="modal" data-target="#projectModal"
+                   class="btn btn-success btn-sm project-edit">
+                    <span class="glyphicon glyphicon-edit"></span> 修改
+                </a>
+                <a class="btn btn-link btn-sm" th:href="@{'/facade/list?projectId='+${item.id}}">
+                    <span class="glyphicon glyphicon-hand-right"></span> 接口
+                </a>
             </td>
         </tr>
     </table>
     <p th:include="./common/page.html"></p>
 </form>
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">项目编辑</h4>
+            </div>
+            <div id="modal_project_body" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="saveProject" type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script>
+    $(function () {
+        $('.project-edit').click(function () {
+            var id = $(this).attr('projectId');
+            if (id == null) {
+                id = ''
+            }
+            $("#modal_project_body").load('save?id=' + id);
+        })
+
+        $('#saveProject').click(function () {
+            $.ajax({
+                url: '/project/save.biz',
+                data: $('#modal_project_body form').serialize(),
+                dataType: 'json',
+                method: 'post',
+                error: function (a,b,c) {
+                    console.log('网络异常',a,b,c)
+                },
+                success: function (data) {
+                    console.log(data)
+                    location.reload()
+                }
+            })
+        })
+    })
+</script>
 </html>

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 class IndexCtl {
     @GetMapping("/")
     fun index():String {
-        return "redirect:project/list"
+        return "redirect:facade/list"
     }
 }

@@ -8,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body th:class="center">
-<h2>接口编辑</h2>
+<!--<h2>接口编辑</h2>-->
 <form class="form-horizontal" method="post" action="/facade/save">
     <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
     <input type="hidden" th:name="id" th:value="${facade?.id}">
@@ -41,7 +41,7 @@
             <input th:value="${facade?.desc}" class="form-control" name="desc" placeholder="请输入接口说明">
         </div>
     </div>
-    <input class="btn btn-success" type="submit" value="save">
+    <!--<input class="btn btn-success" type="submit" value="save">-->
 </form>
 </body>
 </html>
