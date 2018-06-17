@@ -7,10 +7,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="center">
-<h2>接口列表</h2>
+<div class="page-header">
+    <h2>接口列表</h2>
+</div>
 <p>
-    <a class="btn btn-success" th:href="@{'save?projectId='+${facade.projectId}}">新增</a>
-    <a class="btn btn-primary" style="float: right" href="javascript:location.reload();">查询</a>
+    <a class="btn btn-success btn-sm" th:href="@{'save?projectId='+${facade.projectId}}"><span class="glyphicon glyphicon-plus"></span> 新增</a>
+    <a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span class="glyphicon glyphicon-search"></span> 查询</a>
 </p>
 <form th:action="@{list}">
     <table class="table table-hover">
@@ -35,8 +37,8 @@
             <td th:text="${item.operator}"></td>
             <td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
             <td>
-                <a class="btn btn-success" th:href="@{'save?id='+${item.id}}">修改</a>
-                <a class="btn btn-link" th:href="@{'params?facadeId='+${item.id}}">参数</a>
+                <a class="btn btn-success btn-sm" th:href="@{'save?id='+${item.id}}"><span class="glyphicon glyphicon-edit"></span> 修改</a>
+                <a class="btn btn-link btn-sm" th:href="@{'params?facadeId='+${item.id}}"><span class="glyphicon glyphicon-hand-right"></span> 参数</a>
             </td>
         </tr>
     </table>
