@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<style>
-	.pagination {
-		list-style: none;
-	}
-	.pagination li {
-		float: left;
-		margin-left: 1em;
-	}
-</style>
-<style th:include="./common/css.html"></style>
 <input type="hidden" th:name="page" th:value="${page.number}">
 <ul class="pagination pagination-sm" >
 	<!-- 上一页 -->

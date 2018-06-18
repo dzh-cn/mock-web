@@ -12,9 +12,9 @@ class ParamService {
     lateinit var paramRepository: ParamRepository
 
     /**
-     * 获取参数树形结构
+     * 获取参数:按照层次排序，子跟着父
      */
-    fun queryTrue(param: Param) {
+    fun queryByGradation(param: Param) {
         var list = paramRepository.findAll(Example.of(param))
 
         var parents = ArrayList<Param>()
