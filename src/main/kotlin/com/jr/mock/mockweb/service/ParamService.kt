@@ -19,9 +19,50 @@ class ParamService {
 
         var parents = ArrayList<Param>()
         for (l in parents) {
-            if (l.fid == null) {
+            if (l.pid == null) {
                 parents.add(l)
             }
+        }
+    }
+
+    var inited = false
+
+    fun initData() {
+        if (inited) {
+            return
+        }
+        inited = true
+        var map = mutableMapOf<Int?, Param>()
+        for (param in paramRepository.findAll()) {
+            map[param.id] = param
+        }
+        initCode(map, null)
+    }
+
+    fun initCode(all: MutableMap<Int?, Param>, id: Int?) {
+        if (id != null) {
+            var pam = all[id]
+            if (pam == null || pam.code != null) {
+                return
+            }
+
+            if (pam.pid == null) {
+                pam.code = pam.facadeId?.toString() + "_" + String.format("%02d", pam.id) //pam.id?.toString()
+                pam.level = (pam.code?:"_").split("_").size - 2
+                paramRepository.save(pam)
+                return
+            }
+
+            if (all[pam.pid!!]?.code == null) {
+                initCode(all, pam.pid)
+            }
+
+            pam.code = all[pam.pid!!]?.code + "_" + String.format("%02d", pam.id)
+            pam.level = (pam.code?:"_").split("_").size - 2
+            paramRepository.save(pam)
+        }
+        for (key in all.keys) {
+            initCode(all, key)
         }
     }
 }

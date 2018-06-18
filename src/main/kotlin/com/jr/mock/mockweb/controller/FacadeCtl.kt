@@ -3,6 +3,7 @@ package com.jr.mock.mockweb.controller
 import com.jr.mock.mockweb.entity.Facade
 import com.jr.mock.mockweb.repository.FacadeRepository
 import com.jr.mock.mockweb.repository.ProjectRepository
+import com.jr.mock.mockweb.service.ParamService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.Pageable
@@ -19,6 +20,9 @@ import java.util.*
 class FacadeCtl {
     @Autowired
     lateinit var facadeRepository: FacadeRepository
+
+    @Autowired
+    lateinit var paramService: ParamService
 
     @Autowired
     lateinit var projectRepository: ProjectRepository
@@ -61,6 +65,7 @@ class FacadeCtl {
 
     @GetMapping("params")
     fun params(facadeId: Int?, model: Model):String {
+        paramService.initData()
         if (facadeId != null) {
             model.addAttribute("facade", facadeRepository.findById(facadeId).get())
         }

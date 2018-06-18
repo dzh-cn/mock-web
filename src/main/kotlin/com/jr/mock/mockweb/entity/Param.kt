@@ -11,7 +11,7 @@ class Param: OperatorCommon() {
     @Column
     var facadeId:Int? = null // 接口id
     @Column
-    var fid:Int? = null // 父id
+    var pid:Int? = null // 父id
     @Column
     var name:String? = null
     @Column
@@ -22,8 +22,12 @@ class Param: OperatorCommon() {
     var type:String? = null // 字符串、对象、数字、数字
     @Column
     var mock:String? = null
+    @Column
+    var code:String? = null
+    @Column
+    var level:Int? = null
 
     override fun toString(): String {
-        return "Param(id=$id, facadeId=$facadeId, fid=$fid, name=$name, desc=$desc, model=$model, type=$type, mock=$mock)"
+        return "Param(id=$id, facadeId=$facadeId, pid=$pid, name=$name, desc=$desc, model=$model, type=$type, mock=$mock, code=$code)"
     }
 }

@@ -4,6 +4,7 @@ import com.jr.mock.mockweb.entity.Param
 import com.jr.mock.mockweb.repository.ParamRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Example
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,10 +21,11 @@ class ParamCtl {
 
     @RequestMapping("list")
     fun list(model: Model, param: Param): String {
+        var sort = Sort(Sort.Direction.ASC, "code")
         param.model = "REQUEST"
-        model.addAttribute("pageRequest", paramRepository.findAll(Example.of(param)))
+        model.addAttribute("pageRequest", paramRepository.findAll(Example.of(param), sort))
         param.model = "RESPONSE"
-        model.addAttribute("pageResponse", paramRepository.findAll(Example.of(param)))
+        model.addAttribute("pageResponse", paramRepository.findAll(Example.of(param), sort))
         return "param/list"
     }
 
@@ -37,10 +39,10 @@ class ParamCtl {
     }
 
     @GetMapping("append")
-    fun toAppend(fid: Int, model: Model): String {
-        var parent = paramRepository.findById(fid).get()
+    fun toAppend(pid: Int, model: Model): String {
+        var parent = paramRepository.findById(pid).get()
         var param = Param()
-        param.fid = fid
+        param.pid = pid
         param.facadeId = parent.facadeId
         param.model = parent.model
         model.addAttribute("parameter", param)
