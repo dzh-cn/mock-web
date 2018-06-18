@@ -80,10 +80,11 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tr th:each="item: ${pageRequest}">
+        <tr th:each="item: ${pageRequest}" th:attr="code=${item.code}">
             <td>
+                <!--<span th:class="${' level-' + item.level}"></span>-->
                 <span th:class="${'level-' + item.level}" th:text="${item.name}"></span>
-                <span th:class="${'Array' eq item.type or 'Object' eq item.type?' glyphicon glyphicon-plus-sign':''}"></span>
+                <span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs" th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
             </td>
             <td th:text="${item.desc}"></td>
             <td th:text="${item.type}"></td>

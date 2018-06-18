@@ -5,11 +5,26 @@ import com.jr.mock.mockweb.repository.ParamRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Example
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ParamService {
     @Autowired
     lateinit var paramRepository: ParamRepository
+
+    fun save(param: Param) {
+        paramRepository.save(param)
+        if (param.pid == null) { // 根节点逻辑
+            param.code = param.facadeId?.toString() + "_" + String.format("%02d", param.id) //pam.id?.toString()
+            param.level = 0
+        } else {
+            var parent = paramRepository.findById(param.pid?:0).get()
+            param.code = parent.code + "_" + String.format("%02d", param.id)
+            param.level = parent.level?:0 + 1
+        }
+        param.lastModifiedDate = Date()
+        paramRepository.save(param)
+    }
 
     /**
      * 获取参数:按照层次排序，子跟着父

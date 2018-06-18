@@ -2,6 +2,7 @@ package com.jr.mock.mockweb.controller
 
 import com.jr.mock.mockweb.entity.Param
 import com.jr.mock.mockweb.repository.ParamRepository
+import com.jr.mock.mockweb.service.ParamService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.Sort
@@ -18,6 +19,9 @@ import java.util.*
 class ParamCtl {
     @Autowired
     lateinit var paramRepository: ParamRepository
+
+    @Autowired
+    lateinit var paramService: ParamService
 
     @RequestMapping("list")
     fun list(model: Model, param: Param): String {
@@ -51,16 +55,14 @@ class ParamCtl {
 
     @PostMapping("save")
     fun doSave(param: Param): String {
-        param.lastModifiedDate = Date()
-        paramRepository.save(param)
+        paramService.save(param)
         return "redirect:/facade/params?facadeId=${param.facadeId}"
     }
 
     @PostMapping("save.biz")
     @ResponseBody
     fun bizSave(param: Param): Any {
-        param.lastModifiedDate = Date()
-        paramRepository.save(param)
+        paramService.save(param)
         return hashMapOf("success" to true, "code" to "success", "message" to "请求成功")
     }
 }
