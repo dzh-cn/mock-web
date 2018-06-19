@@ -51,26 +51,33 @@
 </form>
 <div class="panel panel-default" id="mock_reference" style="display:none">
 	<div class="panel-heading">
-		mock规则参考
+		mock参考node.js
 	</div>
 	<div class="panel-body">
 		Mock.mock('http://test.com', {
-			</br><span style="padding-left: 2em"></span>"user|1-3": [{   // 随机生成1到3个数组元素
-			</br><span style="padding-left: 2em"></span>'name': '@cname',  // 中文名称
-			</br><span style="padding-left: 2em"></span>'id|+1': 88,    // 属性值自动加 1，初始值为88
-			</br><span style="padding-left: 2em"></span>'age|18-28': 0,   // 18至28以内随机整数, 0只是用来确定类型
-			</br><span style="padding-left: 2em"></span>'birthday': '@date("yyyy-MM-dd")',  // 日期
-			</br><span style="padding-left: 2em"></span>'city': '@city(true)',   // 中国城市
-			</br><span style="padding-left: 2em"></span>'color': '@color',  // 16进制颜色
-			</br><span style="padding-left: 2em"></span>'isMale|1': true,  // 布尔值
-			</br><span style="padding-left: 2em"></span>'isFat|1-2': true,  // true的概率是1/3
-			</br><span style="padding-left: 2em"></span>'fromObj|2': obj,  // 从obj对象中随机获取2个属性
-			</br><span style="padding-left: 2em"></span>'fromObj2|1-3': obj,  // 从obj对象中随机获取1至3个属性
-			</br><span style="padding-left: 2em"></span>'brother|1': ['jack', 'jim'], // 随机选取 1 个元素
-			</br><span style="padding-left: 2em"></span>'sister|+1': ['jack', 'jim', 'lily'], // array中顺序选取元素作为结果
-			</br><span style="padding-left: 2em"></span>'friends|2': ['jack', 'jim'] // 重复2次属性值生成一个新数组
+			</br><span style="padding-left: 2em"></span>'list|1-10': [{
+			</br><span style="padding-left: 2em"></span>'id|+1': 1,// 属性 id 是一个自增数，起始值为 1，每次增 1
+			</br><span style="padding-left: 2em"></span>'cname': '@cname',// 中文名称
+			</br><span style="padding-left: 2em"></span>'age|18-28': 0, // 18至28以内随机整数, 0只是用来确定类型
+			</br><span style="padding-left: 2em"></span>'birthday': '@date("yyyy-MM-dd")', // 日期
+			</br><span style="padding-left: 2em"></span>'date': '@date', // 日期
+			</br><span style="padding-left: 2em"></span>'time': '@time', // 时间
+			</br><span style="padding-left: 2em"></span>'dateTime': '@date @time',
+			</br><span style="padding-left: 2em"></span>'email': '@email',
+			</br><span style="padding-left: 2em"></span>'address': '@county(true)', // 地址
+			</br><span style="padding-left: 2em"></span>'city': '@city(true)', // 中国城市(true:包含省)
+			</br><span style="padding-left: 2em"></span>'isMale|1': true, // 布尔值
+			</br><span style="padding-left: 2em"></span>'isFat|1-2': true, // true的概率是1/3
+			</br><span style="padding-left: 2em"></span>'fromObj|2': {a:1,b:2,c:3,d:4}, // 从obj对象中随机获取2个属性
+			</br><span style="padding-left: 2em"></span>'fromOb|1-3': {a:1,b:2,c:3,d:4}, // 从obj对象中随机获取1至3个属性
+			</br><span style="padding-left: 2em"></span>'integer': '@integer',
+			</br><span style="padding-left: 2em"></span>'number|1-100.2': 2,
+			</br><span style="padding-left: 2em"></span>'classroom|1': ['aa','bb','cc','dd'],// 随机选取 1 个元素
+			</br><span style="padding-left: 2em"></span>'favorite|+1': ['aa','bb','cc','dd'],// 按顺序获取 1 个元素
+			</br><span style="padding-left: 2em"></span>'classrooms|1-3': ['aa','bb','cc','dd'],// 重复1-3次返回结果
+			</br><span style="padding-left: 2em"></span>'regexp3': /\d{5,10}/
 			</br><span style="padding-left: 2em"></span>}]
-		</br>});
+		);
 	</div>
 </div>
 </body>
