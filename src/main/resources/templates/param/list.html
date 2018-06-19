@@ -83,7 +83,7 @@
         <tr th:each="item: ${pageRequest}" th:attr="code=${item.code}">
             <td>
                 <!--<span th:class="${' level-' + item.level}"></span>-->
-                <span th:class="${'level-' + item.level}" th:text="${item.name}"></span>
+                <span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}" th:text="${item.name}"></span>
                 <span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs" th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
             </td>
             <td th:text="${item.desc}"></td>
@@ -134,7 +134,7 @@
         <tr th:each="item: ${pageResponse}" th:attr="code=${item.code}">
             <td>
                 <!--<span th:class="${' level-' + item.level}"></span>-->
-                <span th:class="${'level-' + item.level}" th:text="${item.name}"></span>
+                <span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}" th:text="${item.name}"></span>
                 <span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs" th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
             </td>
             <td th:text="${item.desc}"></td>
@@ -143,7 +143,7 @@
             <td th:text="${item.id}"></td>
             <td th:text="${item.pid}"></td>
             <td th:text="${item.code}"></td>
-            <td th:text="${item.level}"></td>
+            <td th:text="${(item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"></td>
             <td>
                 <!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
                         class="glyphicon glyphicon-edit"></span> 修改</a>-->

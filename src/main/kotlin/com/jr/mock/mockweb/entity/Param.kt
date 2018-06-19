@@ -24,8 +24,6 @@ class Param: OperatorCommon() {
     var mock:String? = null
     @Column
     var code:String? = null
-    @Column
-    var level:Int? = null
 
     override fun toString(): String {
         return "Param(id=$id, facadeId=$facadeId, pid=$pid, name=$name, desc=$desc, model=$model, type=$type, mock=$mock, code=$code)"

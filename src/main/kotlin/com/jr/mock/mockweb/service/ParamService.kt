@@ -16,11 +16,9 @@ class ParamService {
         paramRepository.save(param)
         if (param.pid == null) { // 根节点逻辑
             param.code = param.facadeId?.toString() + "_" + String.format("%02d", param.id) //pam.id?.toString()
-            param.level = 0
         } else {
             var parent = paramRepository.findById(param.pid?:0).get()
             param.code = parent.code + "_" + String.format("%02d", param.id)
-            param.level = parent.level?:0 + 1
         }
         param.lastModifiedDate = Date()
         paramRepository.save(param)
@@ -63,7 +61,6 @@ class ParamService {
 
             if (pam.pid == null) {
                 pam.code = pam.facadeId?.toString() + "_" + String.format("%02d", pam.id) //pam.id?.toString()
-                pam.level = (pam.code?:"_").split("_").size - 2
                 paramRepository.save(pam)
                 return
             }
@@ -73,7 +70,6 @@ class ParamService {
             }
 
             pam.code = all[pam.pid!!]?.code + "_" + String.format("%02d", pam.id)
-            pam.level = (pam.code?:"_").split("_").size - 2
             paramRepository.save(pam)
         }
         for (key in all.keys) {

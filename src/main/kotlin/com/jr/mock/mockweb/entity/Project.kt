@@ -1,6 +1,5 @@
 package com.jr.mock.mockweb.entity
 
-import java.util.*
 import javax.persistence.*
 
 @Entity

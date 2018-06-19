@@ -1,0 +1,11 @@
+
+spring:
+  security:
+    user:
+      password: 123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+server:
+  port: 8082
