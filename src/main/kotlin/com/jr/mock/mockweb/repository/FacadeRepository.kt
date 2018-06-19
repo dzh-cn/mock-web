@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.JpaRepository
 /**
  * 项目Repository
  */
-interface ProjectRepository : JpaRepository<Project, Int>
+interface ProjectRepository : JpaRepository<Project, Long>
 
 /**
  * 接口Repository
  */
-interface FacadeRepository : JpaRepository<Facade, Int>
+interface FacadeRepository : JpaRepository<Facade, Long>
 
 /**
  * 参数Repository
  */
-interface ParamRepository : JpaRepository<Param, Int>
+interface ParamRepository : JpaRepository<Param, Long>

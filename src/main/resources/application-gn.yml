@@ -7,5 +7,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+    database: mysql
+  datasource:
+    url: jdbc:mysql://172.25.29.29:3306/oplogs
+    username: m_oplogs
+    password: lTLd2A
 server:
   port: 8082

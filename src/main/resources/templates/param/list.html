@@ -56,7 +56,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">接口说明</label>
 			<div class="col-sm-10">
-				<input th:value="${facade?.desc}" class="form-control" name="desc" placeholder="请输入接口说明">
+				<input th:value="${facade?.explaination}" class="form-control" name="explaination" placeholder="请输入接口说明">
 			</div>
 		</div>
 	</div>
@@ -77,9 +77,9 @@
 			<th>参数含义</th>
 			<th>参数类型</th>
 			<th>mock规则</th>
-			<th>id</th>
-			<th>pid</th>
-			<th>code</th>
+			<!--<th>id</th>-->
+			<!--<th>pid</th>-->
+			<!--<th>code</th>-->
 			<th>操作</th>
 		</tr>
 		</thead>
@@ -91,12 +91,12 @@
 				<span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs"
 					  th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
 			</td>
-			<td th:text="${item.desc}"></td>
+			<td th:text="${item.explaination}"></td>
 			<td th:text="${item.type}"></td>
 			<td th:text="${item.mock}"></td>
-			<td th:text="${item.id}"></td>
-			<td th:text="${item.pid}"></td>
-			<td th:text="${item.code}"></td>
+			<!--<td th:text="${item.id}"></td>-->
+			<!--<td th:text="${item.pid}"></td>-->
+			<!--<td th:text="${item.code}"></td>-->
 			<td>
 				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
 						class="glyphicon glyphicon-edit"></span> 修改</a>-->
@@ -130,10 +130,10 @@
 			<th>参数含义</th>
 			<th>参数类型</th>
 			<th>mock规则</th>
-			<th>id</th>
-			<th>pid</th>
-			<th>code</th>
-			<th>level</th>
+			<!--<th>id</th>-->
+			<!--<th>pid</th>-->
+			<!--<th>code</th>-->
+			<!--<th>level</th>-->
 			<th>操作</th>
 		</tr>
 		</thead>
@@ -145,13 +145,13 @@
 				<span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs"
 					  th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
 			</td>
-			<td th:text="${item.desc}"></td>
+			<td th:text="${item.explaination}"></td>
 			<td th:text="${item.type}"></td>
 			<td th:text="${item.mock}"></td>
-			<td th:text="${item.id}"></td>
-			<td th:text="${item.pid}"></td>
-			<td th:text="${item.code}"></td>
-			<td th:text="${(item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"></td>
+			<!--<td th:text="${item.id}"></td>-->
+			<!--<td th:text="${item.pid}"></td>-->
+			<!--<td th:text="${item.code}"></td>-->
+			<!--<td th:text="${(item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"></td>-->
 			<td>
 				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
 						class="glyphicon glyphicon-edit"></span> 修改</a>-->

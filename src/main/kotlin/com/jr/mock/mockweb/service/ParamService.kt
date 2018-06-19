@@ -23,6 +23,7 @@ class ParamService {
 	 * @time: 2018/6/19 10:02:40
 	 */
 	fun save(param: Param) {
+		param.modifiedDate = Date()
 		paramRepository.save(param)
 		if (param.pid == null) { // 根节点逻辑
 			param.code = param.facadeId?.toString() + "_" + String.format("%02d", param.id) //pam.id?.toString()
@@ -30,7 +31,7 @@ class ParamService {
 			var parent = paramRepository.findById(param.pid ?: 0).get()
 			param.code = parent.code + "_" + String.format("%02d", param.id)
 		}
-		param.lastModifiedDate = Date()
+		param.modifiedDate = Date()
 		paramRepository.save(param)
 	}
 
@@ -40,7 +41,7 @@ class ParamService {
 	 * @time: 2018/6/19 10:09:48
 	 */
 	fun initData(param: Param) {
-		var map = mutableMapOf<Int?, Param>()
+		var map = mutableMapOf<Long?, Param>()
 		for (param in paramRepository.findAll(Example.of(param))) {
 			map[param.id] = param
 		}
@@ -52,7 +53,7 @@ class ParamService {
 	 * @author: dongzhihua
 	 * @time: 2018/6/19 10:10:16
 	 */
-	fun initCode(all: MutableMap<Int?, Param>, id: Int?) {
+	fun initCode(all: MutableMap<Long?, Param>, id: Long?) {
 		if (id != null) {
 			var pam = all[id]
 			if (pam == null || pam.code != null) {

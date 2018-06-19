@@ -12,22 +12,22 @@ import javax.persistence.*
 class Facade : OperatorCommon() {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	var id: Int? = null
+	var id: Long? = null
 	@Column
-	var projectId: Int? = null // 项目id
+	var projectId: Long? = null // 项目id
 	@Column
 	var uri: String? = null // 请求路径 /oder/query.biz
 	@Column
 	var name: String? = null // 名称
 	@Column
-	var desc: String? = null // 说明
+	var explaination: String? = null // 说明
 	@Column
 	var method: String? = null // 方法 get post put
 	@Column
 	var status: String? = null // 状态 生效，下线，不建议使用
 
 	override fun toString(): String {
-		return "Facade(id=$id, projectId=$projectId, uri=$uri, name=$name, desc=$desc, method=$method, status=$status})"
+		return "Facade(id=$id, projectId=$projectId, uri=$uri, name=$name, explaination=$explaination, method=$method, status=$status})"
 	}
 
 }

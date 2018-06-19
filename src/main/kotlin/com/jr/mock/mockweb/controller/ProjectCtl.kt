@@ -30,7 +30,7 @@ class ProjectCtl {
 	}
 
 	@GetMapping("save")
-	fun toSave(id: Int?, model: Model): String {
+	fun toSave(id: Long?, model: Model): String {
 		if (id != null) {
 			model.addAttribute(projectRepository.findById(id).get())
 		}
@@ -39,7 +39,7 @@ class ProjectCtl {
 
 	@PostMapping("save")
 	fun doSave(project: Project): String {
-		project.lastModifiedDate = Date()
+		project.modifiedDate = Date()
 		projectRepository.save(project)
 		return "redirect:/facade/list?projectId=${project.id}"
 	}
@@ -47,7 +47,8 @@ class ProjectCtl {
 	@PostMapping("save.biz")
 	@ResponseBody
 	fun bizSave(project: Project): Any {
-		project.lastModifiedDate = Date()
+		project.modifiedDate = Date()
+		project.createdDate = Date()
 		projectRepository.save(project)
 		return hashMapOf("success" to true, "code" to "success", "message" to "请求成功")
 	}

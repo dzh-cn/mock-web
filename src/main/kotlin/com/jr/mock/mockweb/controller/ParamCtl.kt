@@ -34,7 +34,7 @@ class ParamCtl {
 	}
 
 	@GetMapping("save")
-	fun toSave(id: Int?, model: Model, param: Param): String {
+	fun toSave(id: Long?, model: Model, param: Param): String {
 		model.addAttribute("parameter", param)
 		if (id != null) {
 			model.addAttribute("parameter", paramRepository.findById(id).get())
@@ -43,7 +43,7 @@ class ParamCtl {
 	}
 
 	@GetMapping("append")
-	fun toAppend(pid: Int, model: Model): String {
+	fun toAppend(pid: Long, model: Model): String {
 		var parent = paramRepository.findById(pid).get()
 		var param = Param()
 		param.pid = pid

@@ -14,5 +14,5 @@ open class OperatorCommon {
 	@Column
 	var createdDate: Date? = null
 	@Column
-	var lastModifiedDate: Date? = null
+	var modifiedDate: Date? = null
 }

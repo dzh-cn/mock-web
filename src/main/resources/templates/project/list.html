@@ -39,8 +39,8 @@
 				<td th:text="${item.id}"></td>
 				<td th:text="${item.name}"></td>
 				<!--<td th:text="${item.role}"></td>-->
-				<td th:text="${item.desc}"></td>
-				<td th:text="${#dates.format(item.lastModifiedDate,'yyyy-MM-dd HH:mm')}"></td>
+				<td th:text="${item.explaination}"></td>
+				<td th:text="${#dates.format(item.modifiedDate,'yyyy-MM-dd HH:mm')}"></td>
 				<td>
 					<a th:attr="projectId=${item.id}" data-toggle="modal" data-target="#projectModal"
 					   class="btn btn-success btn-sm project-edit">
