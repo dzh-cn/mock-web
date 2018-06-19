@@ -86,6 +86,7 @@
 		$('#saveProject').click(function () {
 			$.ajax({
 				url: '/project/save.biz',
+				async: false,
 				data: $('#modal_project_body form').serialize(),
 				dataType: 'json',
 				method: 'post',

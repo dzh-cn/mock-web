@@ -109,6 +109,7 @@
 		$('#saveFacade').click(function () {
 			$.ajax({
 				url: 'save.biz',
+				async: false,
 				data: $('#modal_facade_body form').serialize(),
 				dataType: 'json',
 				method: 'post',
