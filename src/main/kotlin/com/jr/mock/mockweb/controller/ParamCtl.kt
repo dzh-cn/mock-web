@@ -17,52 +17,62 @@ import java.util.*
 @Controller
 @RequestMapping("param")
 class ParamCtl {
-    @Autowired
-    lateinit var paramRepository: ParamRepository
+	@Autowired
+	lateinit var paramRepository: ParamRepository
 
-    @Autowired
-    lateinit var paramService: ParamService
+	@Autowired
+	lateinit var paramService: ParamService
 
-    @RequestMapping("list")
-    fun list(model: Model, param: Param): String {
-        var sort = Sort(Sort.Direction.ASC, "code")
-        param.model = "REQUEST"
-        model.addAttribute("pageRequest", paramRepository.findAll(Example.of(param), sort))
-        param.model = "RESPONSE"
-        model.addAttribute("pageResponse", paramRepository.findAll(Example.of(param), sort))
-        return "param/list"
-    }
+	@RequestMapping("list")
+	fun list(model: Model, param: Param): String {
+		var sort = Sort(Sort.Direction.ASC, "code")
+		param.model = "REQUEST"
+		model.addAttribute("pageRequest", paramRepository.findAll(Example.of(param), sort))
+		param.model = "RESPONSE"
+		model.addAttribute("pageResponse", paramRepository.findAll(Example.of(param), sort))
+		return "param/list"
+	}
 
-    @GetMapping("save")
-    fun toSave(id: Int?, model: Model, param: Param): String {
-        model.addAttribute("parameter", param)
-        if (id != null) {
-            model.addAttribute("parameter", paramRepository.findById(id).get())
-        }
-        return "param/save"
-    }
+	@GetMapping("save")
+	fun toSave(id: Int?, model: Model, param: Param): String {
+		model.addAttribute("parameter", param)
+		if (id != null) {
+			model.addAttribute("parameter", paramRepository.findById(id).get())
+		}
+		return "param/save"
+	}
 
-    @GetMapping("append")
-    fun toAppend(pid: Int, model: Model): String {
-        var parent = paramRepository.findById(pid).get()
-        var param = Param()
-        param.pid = pid
-        param.facadeId = parent.facadeId
-        param.model = parent.model
-        model.addAttribute("parameter", param)
-        return "param/save"
-    }
+	@GetMapping("append")
+	fun toAppend(pid: Int, model: Model): String {
+		var parent = paramRepository.findById(pid).get()
+		var param = Param()
+		param.pid = pid
+		param.facadeId = parent.facadeId
+		param.model = parent.model
+		model.addAttribute("parameter", param)
+		return "param/save"
+	}
 
-    @PostMapping("save")
-    fun doSave(param: Param): String {
-        paramService.save(param)
-        return "redirect:/facade/params?facadeId=${param.facadeId}"
-    }
+	@PostMapping("save")
+	fun doSave(param: Param): String {
+		paramService.save(param)
+		return "redirect:/facade/params?facadeId=${param.facadeId}"
+	}
 
-    @PostMapping("save.biz")
-    @ResponseBody
-    fun bizSave(param: Param): Any {
-        paramService.save(param)
-        return hashMapOf("success" to true, "code" to "success", "message" to "请求成功")
-    }
+	@PostMapping("save.biz")
+	@ResponseBody
+	fun bizSave(param: Param): Any {
+		paramService.save(param)
+		return hashMapOf("success" to true, "code" to "success", "message" to "请求成功")
+	}
+
+	/**
+	 * 初始化数据
+	 * @author: dongzhihua
+	 * @time: 2018/6/19 10:12:38
+	 */
+	fun initData(param: Param): String {
+		paramService.initData(param)
+		return "SUCCESS"
+	}
 }

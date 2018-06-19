@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <input type="hidden" th:name="page" th:value="${page.number}">
-<ul class="pagination pagination-sm" >
+<ul class="pagination pagination-sm">
 	<!-- 上一页 -->
 	<li data-th-classappend="*{first} ? 'disabled' : ''">
 		<a href="javascript:void(0);" data-th-attr="pageIndex=0" aria-label="Previous">
@@ -11,7 +11,7 @@
 
 	<!-- 迭代生成页码 -->
 	<li data-th-each="i : ${#numbers.sequence(1, page.totalPages)}"
-		data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''" >
+		data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
 		<a data-th-attr="pageIndex=${i} - 1" href="javascript:void(0);">
 			<span data-th-text="${i}"></span>
 		</a>
@@ -27,16 +27,16 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-    $(function () {
-        $('.pagination a').click(function () {
-            var $t = $(this)
-            var $pageNum = $(':input[name=page]')
-            var cuPageNum = $t.attr('pageindex');
-            if(cuPageNum === $pageNum.val()) {
-                return
-            }
-            $pageNum.val($t.attr('pageindex'))
-            $('form').submit()
-        })
-    })
+	$(function () {
+		$('.pagination a').click(function () {
+			var $t = $(this)
+			var $pageNum = $(':input[name=page]')
+			var cuPageNum = $t.attr('pageindex');
+			if (cuPageNum === $pageNum.val()) {
+				return
+			}
+			$pageNum.val($t.attr('pageindex'))
+			$('form').submit()
+		})
+	})
 </script>

@@ -13,16 +13,16 @@ import java.util.*
 @SpringBootTest
 class MockWebApplicationTests {
 
-    @Autowired
-    lateinit var facadeRepository: FacadeRepository
+	@Autowired
+	lateinit var facadeRepository: FacadeRepository
 
-    @Test
-    fun contextLoads() {
-        var facade = Facade()
-        facade.createdDate = Date()
-        facade.name = "保存会员信息"
-        println(facadeRepository.save(facade))
-        println(facadeRepository.findAll())
-    }
+	@Test
+	fun contextLoads() {
+		var facade = Facade()
+		facade.createdDate = Date()
+		facade.name = "保存会员信息"
+		println(facadeRepository.save(facade))
+		println(facadeRepository.findAll())
+	}
 
 }

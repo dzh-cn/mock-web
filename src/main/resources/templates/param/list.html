@@ -1,232 +1,242 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>接口详情</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .level-1 {
-            padding-left: 2em;
-        }
-        .level-2 {
-            padding-left: 4em;
-        }
-        .level-3 {
-            padding-left: 6em;
-        }
-        .level-4 {
-            padding-left: 8em;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<title>接口详情</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.level-1 {
+			padding-left: 2em;
+		}
+
+		.level-2 {
+			padding-left: 4em;
+		}
+
+		.level-3 {
+			padding-left: 6em;
+		}
+
+		.level-4 {
+			padding-left: 8em;
+		}
+	</style>
 </head>
 <body>
 <div class="container">
-    <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li>接口参数列表</li>
-    </ol>
-    <div class="readonly form-horizontal">
-        <div class="page-header">
-            <h3>接口信息
-                <a class="btn btn-link" style="float: right" th:href="@{'/facade/list?projectId='+${facade.projectId}}">
-                    <span class="glyphicon glyphicon-hand-right"></span> Home</a>
-            </h3>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">接口名称</label>
-            <div class="col-sm-10">
-                <input th:value="${facade?.name}" class="form-control" name="name" placeholder="请输入项目名称">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">请求路径</label>
-            <div class="col-sm-10">
-                <input th:value="${facade?.uri}" class="form-control" name="uri" placeholder="请输入请求路径">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">方法</label>
-            <div class="col-sm-10">
-                <input th:value="${facade?.method}" class="form-control" name="uri" placeholder="请输入请求路径">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">接口说明</label>
-            <div class="col-sm-10">
-                <input th:value="${facade?.desc}" class="form-control" name="desc" placeholder="请输入接口说明">
-            </div>
-        </div>
-    </div>
-    <div class="page-header">
-        <h3>参数列表
-            <!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=REQUEST&facadeId='+${facade?.id}}"><span
-                    class="glyphicon glyphicon-plus"></span></a>-->
-            <button class="btn btn-success btn-sm param-edit" data-toggle="modal" data-target="#paramModal">
-                <input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=REQUEST'}" type="hidden">
-                <span class="glyphicon glyphicon-plus"></span> 新增
-            </button>
-        </h3>
-    </div>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>参数名</th>
-            <th>参数含义</th>
-            <th>参数类型</th>
-            <th>mock规则</th>
-            <th>id</th>
-            <th>pid</th>
-            <th>code</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tr th:each="item: ${pageRequest}" th:attr="code=${item.code}">
-            <td>
-                <!--<span th:class="${' level-' + item.level}"></span>-->
-                <span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}" th:text="${item.name}"></span>
-                <span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs" th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
-            </td>
-            <td th:text="${item.desc}"></td>
-            <td th:text="${item.type}"></td>
-            <td th:text="${item.mock}"></td>
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.pid}"></td>
-            <td th:text="${item.code}"></td>
-            <td>
-                <!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
-                        class="glyphicon glyphicon-edit"></span> 修改</a>-->
-                <a th:attr="paramId=${item.id}" data-toggle="modal" data-target="#paramModal"
-                   class="btn btn-success btn-sm param-edit">
-                    <span class="glyphicon glyphicon-edit"></span> 修改
-                </a>
-                <a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
-                   data-toggle="modal" data-target="#paramModal">
-                    <input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=REQUEST'}" type="hidden">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </td>
-        </tr>
-    </table>
-    <div class="page-header">
-        <h3>返回值列表
-            <!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=RESPONSE&facadeId='+${facade?.id}}"><span
-                    class="glyphicon glyphicon-plus"></span></a>-->
-            <button class="btn btn-success btn-sm param-edit" data-toggle="modal" data-target="#paramModal">
-                <input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=RESPONSE'}" type="hidden">
-                <span class="glyphicon glyphicon-plus"></span> 新增
-            </button>
-        </h3>
-    </div>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>参数名</th>
-            <th>参数含义</th>
-            <th>参数类型</th>
-            <th>mock规则</th>
-            <th>id</th>
-            <th>pid</th>
-            <th>code</th>
-            <th>level</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tr th:each="item: ${pageResponse}" th:attr="code=${item.code}">
-            <td>
-                <!--<span th:class="${' level-' + item.level}"></span>-->
-                <span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}" th:text="${item.name}"></span>
-                <span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs" th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
-            </td>
-            <td th:text="${item.desc}"></td>
-            <td th:text="${item.type}"></td>
-            <td th:text="${item.mock}"></td>
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.pid}"></td>
-            <td th:text="${item.code}"></td>
-            <td th:text="${(item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"></td>
-            <td>
-                <!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
-                        class="glyphicon glyphicon-edit"></span> 修改</a>-->
-                <a th:attr="paramId=${item.id}" data-toggle="modal" data-target="#paramModal"
-                    class="btn btn-success btn-sm param-edit">
-                    <span class="glyphicon glyphicon-edit"></span> 修改
-                </a>
-                <a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
-                   data-toggle="modal" data-target="#paramModal">
-                    <input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=RESPONSE'}" type="hidden">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-                <!--<a class="btn btn-success btn-sm" th:if="${'Array' eq item.type or 'Object' eq item.type}"
-                   th:href="@{'/param/append?pid='+${item.id}}"><span
-                        class="glyphicon glyphicon-plus"></span> </a>-->
-            </td>
-        </tr>
-    </table>
+	<ol class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li>接口参数列表</li>
+	</ol>
+	<div class="readonly form-horizontal">
+		<div class="page-header">
+			<h3>接口信息
+				<a class="btn btn-link" style="float: right" th:href="@{'/facade/list?projectId='+${facade.projectId}}">
+					<span class="glyphicon glyphicon-hand-right"></span> Home</a>
+			</h3>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">接口名称</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.name}" class="form-control" name="name" placeholder="请输入项目名称">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">请求路径</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.uri}" class="form-control" name="uri" placeholder="请输入请求路径">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">方法</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.method}" class="form-control" name="uri" placeholder="请输入请求路径">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">接口说明</label>
+			<div class="col-sm-10">
+				<input th:value="${facade?.desc}" class="form-control" name="desc" placeholder="请输入接口说明">
+			</div>
+		</div>
+	</div>
+	<div class="page-header">
+		<h3>参数列表
+			<!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=REQUEST&facadeId='+${facade?.id}}"><span
+					class="glyphicon glyphicon-plus"></span></a>-->
+			<button class="btn btn-success btn-sm param-edit" data-toggle="modal" data-target="#paramModal">
+				<input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=REQUEST'}" type="hidden">
+				<span class="glyphicon glyphicon-plus"></span> 新增
+			</button>
+		</h3>
+	</div>
+	<table class="table table-striped table-hover">
+		<thead>
+		<tr>
+			<th>参数名</th>
+			<th>参数含义</th>
+			<th>参数类型</th>
+			<th>mock规则</th>
+			<th>id</th>
+			<th>pid</th>
+			<th>code</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tr th:each="item: ${pageRequest}" th:attr="code=${item.code}">
+			<td>
+				<!--<span th:class="${' level-' + item.level}"></span>-->
+				<span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"
+					  th:text="${item.name}"></span>
+				<span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs"
+					  th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
+			</td>
+			<td th:text="${item.desc}"></td>
+			<td th:text="${item.type}"></td>
+			<td th:text="${item.mock}"></td>
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.pid}"></td>
+			<td th:text="${item.code}"></td>
+			<td>
+				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
+						class="glyphicon glyphicon-edit"></span> 修改</a>-->
+				<a th:attr="paramId=${item.id}" data-toggle="modal" data-target="#paramModal"
+				   class="btn btn-success btn-sm param-edit">
+					<span class="glyphicon glyphicon-edit"></span> 修改
+				</a>
+				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
+				   data-toggle="modal" data-target="#paramModal">
+					<input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=REQUEST'}"
+						   type="hidden">
+					<span class="glyphicon glyphicon-plus"></span>
+				</a>
+			</td>
+		</tr>
+	</table>
+	<div class="page-header">
+		<h3>返回值列表
+			<!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=RESPONSE&facadeId='+${facade?.id}}"><span
+					class="glyphicon glyphicon-plus"></span></a>-->
+			<button class="btn btn-success btn-sm param-edit" data-toggle="modal" data-target="#paramModal">
+				<input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=RESPONSE'}" type="hidden">
+				<span class="glyphicon glyphicon-plus"></span> 新增
+			</button>
+		</h3>
+	</div>
+	<table class="table table-striped table-hover">
+		<thead>
+		<tr>
+			<th>参数名</th>
+			<th>参数含义</th>
+			<th>参数类型</th>
+			<th>mock规则</th>
+			<th>id</th>
+			<th>pid</th>
+			<th>code</th>
+			<th>level</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tr th:each="item: ${pageResponse}" th:attr="code=${item.code}">
+			<td>
+				<!--<span th:class="${' level-' + item.level}"></span>-->
+				<span th:class="${'level-' + (item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"
+					  th:text="${item.name}"></span>
+				<span name="shrink" th:attr="code=${item.code}" class="btn btn-default btn-xs"
+					  th:if="${'Array' eq item.type or 'Object' eq item.type}">-</span>
+			</td>
+			<td th:text="${item.desc}"></td>
+			<td th:text="${item.type}"></td>
+			<td th:text="${item.mock}"></td>
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.pid}"></td>
+			<td th:text="${item.code}"></td>
+			<td th:text="${(item.code.length() - #strings.replace(item.code, '_', '').length() - 1)}"></td>
+			<td>
+				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
+						class="glyphicon glyphicon-edit"></span> 修改</a>-->
+				<a th:attr="paramId=${item.id}" data-toggle="modal" data-target="#paramModal"
+				   class="btn btn-success btn-sm param-edit">
+					<span class="glyphicon glyphicon-edit"></span> 修改
+				</a>
+				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
+				   data-toggle="modal" data-target="#paramModal">
+					<input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=RESPONSE'}"
+						   type="hidden">
+					<span class="glyphicon glyphicon-plus"></span>
+				</a>
+				<!--<a class="btn btn-success btn-sm" th:if="${'Array' eq item.type or 'Object' eq item.type}"
+				   th:href="@{'/param/append?pid='+${item.id}}"><span
+						class="glyphicon glyphicon-plus"></span> </a>-->
+			</td>
+		</tr>
+	</table>
 
-    <div class="modal fade" id="paramModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">接口编辑</h4>
-                </div>
-                <div id="modal_param_body" class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button id="saveParam" type="button" class="btn btn-primary">提交</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="paramModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">接口编辑</h4>
+				</div>
+				<div id="modal_param_body" class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="saveParam" type="button" class="btn btn-primary">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-    $(function () {
-        $('.readonly :input').each(function (i, v) {
-            $(v).attr("readonly", true)
-        })
-        $('.param-edit').click(function () {
-            var param = $(this).find('[name=_param_]').val()
+	$(function () {
+		$('.readonly :input').each(function (i, v) {
+			$(v).attr("readonly", true)
+		})
+		$('.param-edit').click(function () {
+			var param = $(this).find('[name=_param_]').val()
 
-            var id = $(this).attr('paramId');
-            id = id == null ? '': id
-            $("#modal_param_body").load('/param/save?id=' + id + '&' + param);
-        })
+			var id = $(this).attr('paramId');
+			id = id == null ? '' : id
+			$("#modal_param_body").load('/param/save?id=' + id + '&' + param);
+		})
 
-        $('#saveParam').click(function () {
-            $.ajax({
-                url: '/param/save.biz',
-                data: $('#modal_param_body form').serialize(),
-                dataType: 'json',
-                method: 'post',
-                error: function (a,b,c) {
-                    console.log('网络异常',a,b,c)
-                },
-                success: function (data) {
-                    console.log(data)
-                    location.reload()
-                }
-            })
-        })
+		$('#saveParam').click(function () {
+			$.ajax({
+				url: '/param/save.biz',
+				data: $('#modal_param_body form').serialize(),
+				dataType: 'json',
+				method: 'post',
+				error: function (a, b, c) {
+					console.log('网络异常', a, b, c)
+				},
+				success: function (data) {
+					console.log(data)
+					location.reload()
+				}
+			})
+		})
 
-        $('[name=shrink]').click(function () {
-            var $t = $(this)
-            var code = $t.attr('code')
-            var $children = $('tr[code^=' +code+ '_]')
-            if($t.text() == '-') {
-                $children.hide()
-                $t.text('+')
-            } else {
-                $children.show()
-                $t.text('-')
-            }
-            $children.find('[name=shrink]').each(function (i, v) {
-                $(this).text($t.text())
-            });
-        })
-    })
+		$('[name=shrink]').click(function () {
+			var $t = $(this)
+			var code = $t.attr('code')
+			var $children = $('tr[code^=' + code + '_]')
+			if ($t.text() == '-') {
+				$children.hide()
+				$t.text('+')
+			} else {
+				$children.show()
+				$t.text('-')
+			}
+			$children.find('[name=shrink]').each(function (i, v) {
+				$(this).text($t.text())
+			});
+		})
+	})
 </script>
 </html>

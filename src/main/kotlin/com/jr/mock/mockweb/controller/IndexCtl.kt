@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping
 class IndexCtl {
-    @GetMapping("/")
-    fun index():String {
-        return "redirect:facade/list"
-    }
+
+	@GetMapping("/")
+	fun index(): String {
+		return "redirect:facade/list"
+	}
 }
