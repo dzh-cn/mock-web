@@ -71,6 +71,8 @@ class ParamCtl {
 	 * @author: dongzhihua
 	 * @time: 2018/6/19 10:12:38
 	 */
+	@GetMapping("initData.biz")
+	@ResponseBody
 	fun initData(param: Param): String {
 		paramService.initData(param)
 		return "SUCCESS"
