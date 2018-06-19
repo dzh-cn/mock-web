@@ -77,4 +77,26 @@ class ParamService {
 			initCode(all, key)
 		}
 	}
+
+	fun getMockFacadeId(param: Param): Any? {
+		var map = mutableMapOf<Long?, MutableList<Param>>()
+		for (param in paramRepository.findAll(Example.of(param))) {
+			if (map[param.pid] == null) {
+				map[param.pid] = mutableListOf()
+			}
+			map[param.pid]?.add(param)
+		}
+
+		return initMock(map, map[null])
+	}
+
+	fun initMock(paramMap: MutableMap<Long?, MutableList<Param>>, paramList: List<Param>?) : MutableMap<Any?, Any?>? {
+		var mockMap = mutableMapOf<Any?, Any?>()
+		paramList?: return null
+		paramList?.forEach({
+			var mock:Any? = initMock(paramMap, paramMap[it.id])
+			mockMap[it.name] = mock?:it.mock
+		})
+		return mockMap
+	}
 }
