@@ -24,6 +24,6 @@ class IndexCtl {
 	@GetMapping("/mock")
 	@ResponseBody
 	fun mock(param: Param): Any? {
-		return paramService.getMockFacadeId(param)
+		return paramService.getMock(param)
 	}
 }
