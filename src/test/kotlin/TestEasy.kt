@@ -1,4 +1,7 @@
+import com.google.gson.Gson
+
 fun main(args: Array<String>) {
-	println(("1_03_06_08_00_11".lastIndexOf("_") + 1) / 2 - 1)
-	println("1_03_06_08_00_".split("_").size - 1)
+	var gson = Gson()
+	var obj = gson.fromJson<Any>("0", Any::class.java)
+	println(obj.javaClass)
 }
