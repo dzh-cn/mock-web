@@ -20,7 +20,6 @@
     </appender>
 
     <root level="INFO">
-        <!--<appender-ref ref="DETAIL"/>-->
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>

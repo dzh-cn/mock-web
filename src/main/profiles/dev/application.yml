@@ -6,5 +6,8 @@ spring:
   jpa:
     show-sql: true
     database: h2
+  datasource:
+    sql-script-encoding: utf-8
 server:
   port: 8082
+

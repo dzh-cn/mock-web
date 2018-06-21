@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+    <property name="APP" value="mock-web"/>
+    <property name="LOG_HOME" value="/export/log/${APP}"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="DETAIL" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <File>${LOG_HOME}/${APP}_detail.log</File>
+        <encoder>
+            <pattern>%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{0} %X{ServiceId} - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--归档，gzip-->
+            <fileNamePattern>${LOG_HOME}/${APP}_detail.log.%d{yyyyMMdd}.gz</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="DETAIL"/>
+    </root>
+</configuration>

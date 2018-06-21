@@ -4,6 +4,7 @@ import com.jr.mock.mockweb.entity.Param
 import com.jr.mock.mockweb.repository.ParamRepository
 import com.jr.mock.mockweb.service.ParamService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Controller
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
-import java.util.*
 
 @Controller
 @RequestMapping("param")
@@ -23,6 +23,9 @@ class ParamCtl {
 	@Autowired
 	lateinit var paramService: ParamService
 
+	@Value("\${mock.node.url:''}")
+	lateinit var mockNodeUrl: String
+
 	@RequestMapping("list")
 	fun list(model: Model, param: Param): String {
 		var sort = Sort(Sort.Direction.ASC, "code")
@@ -30,6 +33,7 @@ class ParamCtl {
 		model.addAttribute("pageRequest", paramRepository.findAll(Example.of(param), sort))
 		param.model = "RESPONSE"
 		model.addAttribute("pageResponse", paramRepository.findAll(Example.of(param), sort))
+		model.addAttribute("mockNodeUrl", mockNodeUrl)
 		return "param/list"
 	}
 

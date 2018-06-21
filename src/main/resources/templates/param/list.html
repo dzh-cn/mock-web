@@ -69,7 +69,7 @@
 				<span class="glyphicon glyphicon-plus"></span> 新增
 			</button>
 			<a style="float: right" class="btn btn-link btn-sm" target="_blank"
-			   th:href="@{'http://localhost:3000/mock?model=REQUEST&facadeId='+${facade.id}}">
+			   th:href="@{${mockNodeUrl} +'/mock?model=REQUEST&facadeId='+${facade.id}}">
 				<span class="glyphicon glyphicon-print"></span> mock
 			</a>
 		</h3>
@@ -126,7 +126,7 @@
 				<span class="glyphicon glyphicon-plus"></span> 新增
 			</button>
 			<a style="float: right" class="btn btn-link btn-sm"  target="_blank"
-			   th:href="@{'http://localhost:3000/mock?model=RESPONSE&facadeId='+${facade.id}}">
+			   th:href="@{${mockNodeUrl} +'/mock?model=RESPONSE&facadeId='+${facade.id}}">
 				<span class="glyphicon glyphicon-print"></span> mock
 			</a>
 		</h3>
