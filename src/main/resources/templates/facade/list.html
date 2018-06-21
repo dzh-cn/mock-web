@@ -33,8 +33,7 @@
 			</div>
 			<p>
 				<!--<a class="btn btn-success btn-sm" th:href="@{'save?projectId='+${currentProjectId}}"><span class="glyphicon glyphicon-plus"></span> 新增</a>-->
-				<button th:attr="projectId=${currentProjectId}" class="btn btn-success btn-sm facade-edit"
-						data-toggle="modal" data-target="#facadeModal">
+				<button th:attr="projectId=${currentProjectId}" class="btn btn-success btn-sm facade-edit">
 					<span class="glyphicon glyphicon-plus"></span> 新增
 				</button>
 				<a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span
@@ -64,8 +63,7 @@
 						<td th:text="${#dates.format(item.modifiedDate,'yyyy-MM-dd HH:mm')}"></td>
 						<td>
 							<!--<a class="btn btn-success btn-sm" th:href="@{'save?id='+${item.id}}"><span class="glyphicon glyphicon-edit"></span> 修改</a>-->
-							<a th:attr="facadeId=${item.id}" data-toggle="modal" data-target="#facadeModal"
-							   class="btn btn-success btn-sm facade-edit">
+							<a th:attr="facadeId=${item.id}" class="btn btn-success btn-sm facade-edit">
 								<span class="glyphicon glyphicon-edit"></span> 修改
 							</a>
 							<a class="btn btn-link btn-sm" th:href="@{'params?facadeId='+${item.id}}"><span
@@ -106,6 +104,10 @@
 			var projectId = $(this).attr('projectId');
 			projectId = projectId == null ? '' : projectId
 			$("#modal_facade_body").load('save?id=' + id + '&projectId=' + projectId);
+			$('#facadeModal').modal({
+				backdrop: false,
+				keyboard: false,
+			})
 		})
 
 		$('#saveFacade').click(function () {

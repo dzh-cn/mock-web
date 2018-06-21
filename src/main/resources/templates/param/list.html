@@ -64,7 +64,7 @@
 		<h3>参数列表
 			<!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=REQUEST&facadeId='+${facade?.id}}"><span
 					class="glyphicon glyphicon-plus"></span></a>-->
-			<button class="btn btn-success btn-sm param-edit" data-toggle="modal" data_target="#paramModal">
+			<button class="btn btn-success btn-sm param-edit">
 				<input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=REQUEST'}" type="hidden">
 				<span class="glyphicon glyphicon-plus"></span> 新增
 			</button>
@@ -104,12 +104,10 @@
 			<td>
 				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
 						class="glyphicon glyphicon-edit"></span> 修改</a>-->
-				<a th:attr="paramId=${item.id}" data-toggle="modal" data_target="#paramModal"
-				   class="btn btn-success btn-sm param-edit">
+				<a th:attr="paramId=${item.id}" class="btn btn-success btn-sm param-edit">
 					<span class="glyphicon glyphicon-edit"></span> 修改
 				</a>
-				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
-				   data-toggle="modal" data_target="#paramModal">
+				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit">
 					<input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=REQUEST'}"
 						   type="hidden">
 					<span class="glyphicon glyphicon-plus"></span>
@@ -121,7 +119,7 @@
 		<h3>返回值列表
 			<!--<a class="btn btn-success btn-xs" th:href="@{'/param/save?model=RESPONSE&facadeId='+${facade?.id}}"><span
 					class="glyphicon glyphicon-plus"></span></a>-->
-			<button class="btn btn-success btn-sm param-edit" data-toggle="modal" data_target="#paramModal">
+			<button class="btn btn-success btn-sm param-edit">
 				<input name="_param_" th:value="${'facadeId=' + facade?.id + '&model=RESPONSE'}" type="hidden">
 				<span class="glyphicon glyphicon-plus"></span> 新增
 			</button>
@@ -163,12 +161,10 @@
 			<td>
 				<!--<a class="btn btn-success btn-sm" th:href="@{'/param/save?id='+${item.id}}"><span
 						class="glyphicon glyphicon-edit"></span> 修改</a>-->
-				<a th:attr="paramId=${item.id}" data-toggle="modal" data_target="#paramModal"
-				   class="btn btn-success btn-sm param-edit">
+				<a th:attr="paramId=${item.id}" class="btn btn-success btn-sm param-edit">
 					<span class="glyphicon glyphicon-edit"></span> 修改
 				</a>
-				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit"
-				   data-toggle="modal" data_target="#paramModal">
+				<a th:if="${'Array' eq item.type or 'Object' eq item.type}" class="btn btn-success btn-sm param-edit">
 					<input name="_param_" th:value="${'pid=' + item.id + '&facadeId=' + facade?.id + '&model=RESPONSE'}"
 						   type="hidden">
 					<span class="glyphicon glyphicon-plus"></span>

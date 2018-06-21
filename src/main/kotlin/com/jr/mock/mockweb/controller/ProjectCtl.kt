@@ -26,7 +26,7 @@ class ProjectCtl {
 	fun list(model: Model, pageable: Pageable): String {
 		var page = projectRepository.findAll(pageable)
 		model.addAttribute("page", page)
-		return "/project/list"
+		return "project/list"
 	}
 
 	@GetMapping("save")

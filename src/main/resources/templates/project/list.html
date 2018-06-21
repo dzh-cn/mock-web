@@ -16,7 +16,7 @@
 				class="glyphicon glyphicon-hand-right"></span> Home</a></h2>
 	</div>
 	<p>
-		<button class="btn btn-success btn-sm project-edit" data-toggle="modal" data-target="#projectModal"><span
+		<button class="btn btn-success btn-sm project-edit"><span
 				class="glyphicon glyphicon-plus"></span> 新增
 		</button>
 		<a class="btn btn-primary btn-sm" style="float: right" href="javascript:location.reload();"><span
@@ -42,8 +42,7 @@
 				<td th:text="${item.explaination}"></td>
 				<td th:text="${#dates.format(item.modifiedDate,'yyyy-MM-dd HH:mm')}"></td>
 				<td>
-					<a th:attr="projectId=${item.id}" data-toggle="modal" data-target="#projectModal"
-					   class="btn btn-success btn-sm project-edit">
+					<a th:attr="projectId=${item.id}" class="btn btn-success btn-sm project-edit">
 						<span class="glyphicon glyphicon-edit"></span> 修改
 					</a>
 					<a class="btn btn-link btn-sm" th:href="@{'/facade/list?projectId='+${item.id}}">
@@ -81,6 +80,10 @@
 				id = ''
 			}
 			$("#modal_project_body").load('save?id=' + id);
+			$('#projectModal').modal({
+				backdrop: false,
+				keyboard: false,
+			})
 		})
 
 		$('#saveProject').click(function () {
