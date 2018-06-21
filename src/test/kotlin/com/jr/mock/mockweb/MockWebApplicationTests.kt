@@ -21,7 +21,7 @@ class MockWebApplicationTests {
 		var facade = Facade()
 		facade.createdDate = Date()
 		facade.name = "保存会员信息"
-		println(facadeRepository.save(facade))
+//		println(facadeRepository.save(facade))
 		println(facadeRepository.findAll())
 	}
 
